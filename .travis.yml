@@ -16,7 +16,7 @@ after_success:
   - docker build -t desfox/docker-backend ./backend
   - docker build -t desfox/docker-nginx ./nginx
 
-  - echo "$DOCKER_HUB_PASSWORD" | docker login -u  "$DOCKER-HUB-ID" --password-stdin
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u  "$DOCKER_HUB_ID" --password-stdin
 
   - docker push desfox/docker-frontend
   - docker push desfox/docker-backend
