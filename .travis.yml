@@ -11,7 +11,7 @@ before_install:
 script:
   - docker run -e CI=true desfox/multi-container-app npm run test
 
-aftrt_success:
+after_success:
   - docker build -t desfox/docker-frontend ./frontend
   - docker build -t desfox/docker-backend ./backend
   - docker build -t desfox/docker-nginx ./nginx
