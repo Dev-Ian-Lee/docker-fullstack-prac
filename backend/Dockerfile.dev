@@ -1,0 +1,8 @@
+FROM node:alpine
+WORKDIR /app
+COPY ./package.json ./
+RUN npm install
+COPY ./ ./
+
+# pacakge.json에 nodemon 사용을 위한 스크립트로 등록한 "dev" 사용
+CMD ["npm", "run", "dev"]
