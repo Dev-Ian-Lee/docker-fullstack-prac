@@ -1,0 +1,23 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t desfox/multi-container-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true desfox/multi-container-app npm run test
+
+aftrt_success:
+  - docker build -t desfox/docker-frontend ./frontend
+  - docker build -t desfox/docker-backend ./backend
+  - docker build -t desfox/docker-nginx ./nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u  "$DOCKER-HUB-ID" --password-stdin
+
+  - docker push desfox/docker-frontend
+  - docker push desfox/docker-backend
+  - docker push desfox/docker-nginx
