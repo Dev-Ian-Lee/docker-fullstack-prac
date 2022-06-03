@@ -5,12 +5,15 @@ sudo: required
 services:
   - docker
 
+# 테스트 수행 전 실행할 코드
 before_install:
   - docker build -t desfox/multi-container-app -f ./frontend/Dockerfile.dev ./frontend
 
+# 테스트 수행
 script:
   - docker run -e CI=true desfox/multi-container-app npm run test
 
+# 테스트 성공 시 각 이미지 빌드
 after_success:
   - docker build -t desfox/docker-frontend ./frontend
   - docker build -t desfox/docker-backend ./backend
@@ -21,3 +24,17 @@ after_success:
   - docker push desfox/docker-frontend
   - docker push desfox/docker-backend
   - docker push desfox/docker-nginx
+
+# 배포 위한 코드
+deploy:
+  provide: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-fullstack-app"
+  env: Dockerfullstackapp-env
+  bucket_name: elasticbeanstalk-ap-northeast-2-136955726268
+  bucket_path: "docker-fullstack-app"
+  on:
+    branch: master
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
