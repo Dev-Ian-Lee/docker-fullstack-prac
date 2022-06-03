@@ -1,5 +1,4 @@
-# AWS Docker 브랜치 운영을 위한 docker-compose 코드
-
+# AWS Docker 브랜치 운영, 배포를 위한 docker-compose 코드
 version: "3"
 services:
   frontend:
@@ -34,7 +33,7 @@ services:
       - ./backend:/app
     
     environment:
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=docker-fullstack-mysql.ch7afbdlmknt.ap-northeast-2.rds.amazonaws.com
       - MYSQL_USER=root
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=myapp
