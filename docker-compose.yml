@@ -2,7 +2,7 @@
 version: "3"
 services:
   frontend:
-    iamge: desfox/docker-frontend
+    image: desfox/docker-frontend
 
     volumes:
       - /app/node_modules
@@ -13,7 +13,7 @@ services:
   nginx:
     # 재시작 정책
     restart: always
-    iamge: desfox/docker-nginx
+    image: desfox/docker-nginx
     
     ports:
       - "80:80"
